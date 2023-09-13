@@ -19,8 +19,8 @@ int main(){
 	printf("%s\n",str);
     vet_imprimir(v1);
     vet_removerElemento(v1, 20);
+	vet_removerPosicao(v1, 4, pos);
     printf("\n");
-	vet_toString(v1, str);
     vet_imprimir(v1);
     printf("\n%d\n",vet_tamanho(v1));
     printf("%d\n",vet_posicao(v1,10 ));

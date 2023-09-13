@@ -94,10 +94,11 @@ bool vet_substituir(Vetor* v, int posicao, int novoElemento){
 bool vet_removerPosicao(Vetor* v, int posicao, int* endereco){
     if(posicao > v->tam) return false;
         endereco = &(v->array[posicao]);
-        for (int i = posicao-1; i < v->tam; i++) {
+        for (int i = posicao-1; i < v->qtde; i++) {
           v->array[i] = v->array[i+1];
         }
         v->qtde--;
+        v->tam--;
         return true;
 }
 
@@ -110,18 +111,20 @@ bool vet_removerPosicao(Vetor* v, int posicao, int* endereco){
  */
 
 int vet_removerElemento(Vetor* v, int elemento){
-    int guardar = -1;
-     for(int i = 0; i < v->qtde; i++){
-         if(v->array[i] == elemento ){
-            v->array[i] = -1;
-            guardar = i;
-         }
-     }
-       if(guardar == -1){
-          return -1;
-       }else{
-         return guardar;
-       }
+    int pos = -1;
+    for (int i = 0; i < v->tam; i++) {
+        if (v->array[i] == elemento) {
+            pos = i;
+        }
+    }
+    if (pos != -1) {
+        for (int i = pos; i < v->qtde-1; i++) {
+            v->array[i] = v->array[i+1];
+        }
+        v->qtde--;
+        v->tam--;
+    }
+    return -1;
 }
 
 // Recuperar quantos elementos estão armazenados na sequência.
@@ -198,9 +201,9 @@ void vet_imprimir(Vetor* v){
  */
 
 bool vet_toString(Vetor* v, char* enderecoString){
-  if(v == NULL)return false;
+  if(v == NULL) return false;
   char str[100];
-   strcat(str,"[");
+    strcat(str,"[");
       for(int i = 0; i < v->qtde; i++){
             char temp[10];
             sprintf(temp,"%d",v->array[i]);
