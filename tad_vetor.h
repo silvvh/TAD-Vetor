@@ -28,8 +28,10 @@ Vetor* vet_criar(){
  * Parâmetro v: Endereço da variável que armazena o ponteiro para a struct Vetor (ponteiro de ponteiro).
  */
 void vet_desalocar(Vetor* endVetor){
-   free(endVetor);
-    endVetor = NULL;
+   if (endVetor != NULL) {
+    free(endVetor->array);
+    free(endVetor);
+   }
 }   
 
 // Inserir um elemento no final da sequência
